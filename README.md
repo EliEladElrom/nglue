@@ -1,6 +1,12 @@
 # grunt-nglue
 
+![nglue logo](https://raw.github.com/eladelrom/poet/ei-pages/effectiveidea/public/images/nglue-logo-small.jpg)
+
 > Glue re-usable angular modules together to create one app
+
+`nglue` is lightweight architectural micro-framework it stands for the internal architecture of the processor. It provides the skeleton, around the exact needs/features of your application. In other words, nglue framework provides the starting point for your application’s architecture.
+
+See: [https://github.com/eladelrom/generator-nglue](https://github.com/eladelrom/generator-nglue)
 
 ## Getting Started
 This plugin requires Grunt `~0.4.1`
@@ -14,76 +20,59 @@ npm install grunt-nglue --save-dev
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-nglue');
+'use strict';
+module.exports = function (grunt) {
+  grunt.loadNpmTasks('grunt-nglue');
+};
 ```
 
-## The "nglue" task
+The grunt plugin is intended to be used in an `nglue` project, it already includes the default task and other tasks.
 
-### Overview
-In your project's Gruntfile, add a section named `nglue` to the data object passed into `grunt.initConfig()`.
+### Grunt tasks:
 
-```js
-grunt.initConfig({
-  nglue: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+>grunt
+
+Once you run `grunt` the compiled js and css files will be published to `code_base/dist/`.  Assets files will be copied, less files will be compiled.
+It uses the `config.js > name` and `version` to generate the names as follow;
+
+<pre>
+// global style
+styles/your-project-name-global-components-0.0.0.css
+styles/your-project-name-global-components-latest.css
+
+// global components
+js/your-project-name-global-components-0.0.0.min.js
+js/your-project-name-global-components-latest.min.js
+
+// global dev-dependencies components
+js/your-project-name-global-components-dev-dependencies-0.0.0.min.js
+js/your-project-name-global-components-dev-dependencies-latest.min.js
+</pre>
+
+To build a min module component file for an app do the following;
+
+> grunt app --src=detail-page-app
+
+This grunt task will fetch the `nglue.config` file from the app and will glue together all the modules bower and none bower components as well as a less files.
+The `nglue.config` file of an app includes all modules you are adding together and than it go to work and pick each `nglue.confoig` from each module to create the component
+library and less files.  When you created the app using `yo nglue:apps detail-page` it will create the scaffolding and template as well as basic `nglue.config` file.
+
+Here's an example of an app `nglue.config` file;
+
+<pre>
+{
+  "version": "0.0.1",
+  "name": "detail-page-app",
+  "dependencies": {
   },
-})
-```
+  "nglue-dependencies": {
+    "map": "map",
+    "dropdown": "dropdown",
+    "infinite-scroll": "infinite-scroll",
+    "menu": "menu",
+    "sorting": "sorting"
+}
+</pre>
 
-### Options
-
-#### options.separator
-Type: `String`
-Default value: `',  '`
-
-A string value that is used to do something with whatever.
-
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
-
-A string value that is used to do something else with whatever else.
-
-### Usage Examples
-
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  nglue: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  nglue: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
-
-## Release History
-_(Nothing yet)_
+## License
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)
