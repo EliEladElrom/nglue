@@ -278,6 +278,16 @@ module.exports = function(grunt) {
           'code_base/dist/assets/components/<%= glblpkg.name %>-latest.min.js': globalComponentFiles
         }
       },
+      globalComponentFilesBeautify: {
+        options: {
+          compress: false,
+          mangle: false,
+          beautify: true
+        },
+        files: {
+          'code_base/dist/assets/components/<%= glblpkg.name %>-beautify-latest.js': globalComponentFiles
+        }
+      },
       globalComponentDevFiles: {
         options: {
           compress: {
@@ -448,6 +458,6 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'uglify:globalComponentDevFiles', 'less:globalLessFiles', 'cssmin:globalCssFiles']);
+  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'uglify:globalComponentFilesBeautify', 'uglify:globalComponentDevFiles', 'less:globalLessFiles', 'cssmin:globalCssFiles']);
   grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
 };
