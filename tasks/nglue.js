@@ -31,7 +31,7 @@ module.exports = function(grunt) {
    * Build -- global config json
    */
 
-  var globalConfig = require(process.cwd()+'/code_base/assets/nglue.json'),
+  var globalConfig = require(process.cwd() + '/code_base/assets/nglue.json'),
     globalComponentFiles,
     globalComponentDevFiles,
     globalLessFiles,
@@ -95,7 +95,7 @@ module.exports = function(grunt) {
   var getSourceUrl = function (array, array_keys) {
     var latest = [];
     array_keys.forEach(function (element, index, arr) {
-      latest.push(process.cwd()+'code_base/modules/' + element.name + '/' + element.value);
+      latest.push(process.cwd() + '/code_base/modules/' + element.name + '/' + element.value);
     });
     return latest;
   };
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
   globalCssFiles = convertKeyToArray(globalConfig, 'css', undefined);
 
   if (src !== '') {
-    var moduleConfig = require(process.cwd()+'/code_base/apps/' + src + '/nglue.json');
+    var moduleConfig = require(process.cwd() + '/code_base/apps/' + src + '/nglue.json');
     moduleComponentFiles = convertKeyToArray(moduleConfig, 'nglue-dependencies', undefined);
     moduleLessFiles = convertKeyToArray(moduleConfig, 'less', undefined);
     moduleSassFiles = convertKeyToArray(moduleConfig, 'sass', undefined);
@@ -163,7 +163,7 @@ module.exports = function(grunt) {
       allModuleCopyFiles_keys = [];
 
     for (i = 0; i < len; ++i) {
-      moduleConfigUrl = process.cwd()+'/code_base/modules/' + moduleComponentFiles[i] + '/nglue.json';
+      moduleConfigUrl = process.cwd() + '/code_base/modules/' + moduleComponentFiles[i] + '/nglue.json';
       grunt.log.writeln('Loading: ' + moduleConfigUrl);
       moduleDepn = require(moduleConfigUrl);
 
@@ -259,7 +259,7 @@ module.exports = function(grunt) {
      * version.
      */
     pkg: grunt.file.readJSON('package.json'),
-    glblpkg: grunt.file.readJSON(process.cwd()+'/code_base/assets/nglue.json'),
+    glblpkg: grunt.file.readJSON(process.cwd() + '/code_base/assets/nglue.json'),
     optionSrc: grunt.option('src'),
     appComponentName: grunt.option('appComponentName'),
     appComponentNameVersion: grunt.option('appComponentNameVersion'),
@@ -313,14 +313,24 @@ module.exports = function(grunt) {
       },
       allModuleScriptsFiles: {
         options: {
-          compress: false,
-          mangle: false,
-          beautify: true
+          compress: {
+            unsafe: false
+          }
         },
         files: {
           'code_base/dist/assets/components/<%= appComponentName %>-modules-<%= appComponentNameVersion %>.min.js': moduleScriptsFiles,
           'code_base/dist/assets/components/<%= appComponentName %>-modules-latest.min.js': moduleScriptsFiles,
           'code_base/apps/<%= optionSrc %>/assets/components/<%= appComponentName %>-modules-latest.min.js': moduleScriptsFiles
+        }
+      },
+      allModuleScriptsFilesBeautify: {
+        options: {
+          compress: false,
+          mangle: false,
+          beautify: true
+        },
+        files: {
+          'code_base/dist/assets/components/<%= appComponentName %>-modules-beautify-latest.js': moduleScriptsFiles
         }
       }
     },
@@ -459,5 +469,5 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'uglify:globalComponentFilesBeautify', 'uglify:globalComponentDevFiles', 'less:globalLessFiles', 'cssmin:globalCssFiles']);
-  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'less:moduleLessFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
+  grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'uglify:allModuleScriptsFiles', 'uglify:allModuleScriptsFilesBeautify', 'less:moduleLessFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
 };
