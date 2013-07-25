@@ -1,7 +1,7 @@
 {
   "name": "grunt-nglue",
   "description": "Glue re-usable angular modules together to create one app",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "homepage": "https://github.com/eladelrom/nglue.git",
   "author": {
     "name": "Elad Elrom",
