@@ -427,6 +427,13 @@ module.exports = function(grunt) {
             src: [ 'code_base/assets/fonts/*'],
             dest: 'code_base/dist/assets/fonts/',
             filter: 'isFile'
+          },
+          {
+            expand: true,
+            flatten: true,
+            src: [ 'code_base/assets/images/*'],
+            dest: 'code_base/dist/assets/images/',
+            filter: 'isFile'
           }
         ]
       },
