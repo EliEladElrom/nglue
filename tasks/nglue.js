@@ -301,11 +301,9 @@ module.exports = function(grunt) {
       },
       globalComponentDevFilesBeautify: {
         options: {
-          compress: {
-            compress: false,
-            mangle: false,
-            beautify: true
-          }
+          compress: false,
+          mangle: false,
+          beautify: true
         },
         files: {
           'code_base/dist/assets/components/<%= glblpkg.name %>-dev-dependencies-beautify-latest.min.js': globalComponentDevFiles
@@ -487,6 +485,6 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'uglify:globalComponentFilesBeautify', 'uglify:globalComponentDevFiles', 'less:globalLessFiles', 'cssmin:globalCssFiles']);
+  grunt.registerTask('default', ['clean', 'copy:assets', 'uglify:globalComponentFiles', 'uglify:globalComponentFilesBeautify', 'uglify:globalComponentDevFiles', 'uglify:globalComponentDevFilesBeautify','less:globalLessFiles', 'cssmin:globalCssFiles']);
   grunt.registerTask('app', ['uglify:allModuleComponentFiles', 'uglify:allModuleScriptsFiles', 'uglify:allModuleScriptsFilesBeautify', 'less:moduleLessFiles', 'cssmin:moduleCssFiles', 'copy:app', 'replace:dist']);
 };
