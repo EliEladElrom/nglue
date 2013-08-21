@@ -306,7 +306,7 @@ module.exports = function(grunt) {
           beautify: true
         },
         files: {
-          'code_base/dist/assets/components/<%= glblpkg.name %>-dev-dependencies-beautify-latest.min.js': globalComponentDevFiles
+          'code_base/dist/assets/components/<%= glblpkg.name %>-dev-dependencies-beautify-latest.js': globalComponentDevFiles
         }
       },
       allModuleComponentFiles: {
