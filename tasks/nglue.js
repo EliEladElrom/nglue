@@ -299,6 +299,18 @@ module.exports = function(grunt) {
           'code_base/dist/assets/components/<%= glblpkg.name %>-dev-dependencies-latest.min.js': globalComponentDevFiles
         }
       },
+      globalComponentDevFilesBeautify: {
+        options: {
+          compress: {
+            compress: false,
+            mangle: false,
+            beautify: true
+          }
+        },
+        files: {
+          'code_base/dist/assets/components/<%= glblpkg.name %>-dev-dependencies-beautify-latest.min.js': globalComponentDevFiles
+        }
+      },
       allModuleComponentFiles: {
         options: {
           compress: {
